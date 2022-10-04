@@ -117,7 +117,7 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
-        android:id="@+id/btn_signout"
+        android:id="@+id/btn_signup"
         android:layout_width="117dp"
         android:layout_height="48dp"
         android:layout_marginStart="144dp"

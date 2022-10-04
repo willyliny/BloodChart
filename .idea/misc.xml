@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/willy/AndroidStudioProjects/bloodChart/app/src/main/res/layout/activity_home.xml" value="0.25" />
+        <entry key="..\:/Users/willy/AndroidStudioProjects/bloodChart/app/src/main/res/layout/activity_login.xml" value="0.11574074074074074" />
+        <entry key="..\:/Users/willy/AndroidStudioProjects/bloodChart/app/src/main/res/layout/insert_dialog.xml" value="0.31302083333333336" />
         <entry key="..\:/WorkStation/Apps/Blood/app/src/main/res/layout/activity_home.xml" value="0.33" />
         <entry key="..\:/WorkStation/Apps/Blood/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/WorkStation/Apps/Blood/app/src/main/res/layout/activity_main.xml" value="0.1" />

@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.*;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button btn_signup, btn_haveaccount;
@@ -20,14 +23,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //Bundle
+        Bundle bundle = new Bundle();
         //EditText
         ed_name = findViewById(R.id.ed_name);
         ed_account = findViewById(R.id.ed_account);
         ed_password = findViewById(R.id.ed_password);
         //Button
         btn_haveaccount = findViewById(R.id.btn_haveaccount);
-        btn_signup = findViewById(R.id.btn_signout);
+        btn_signup = findViewById(R.id.btn_signup);
 
         //DB
         DB = new DBHelper(this);
@@ -52,14 +56,31 @@ public class MainActivity extends AppCompatActivity {
                 else{
                     Boolean checkaccount = DB.checkaccount(account);
                     if(checkaccount == false){
-                        Boolean insert = DB.insertData(username, account, password);
-                        Toast.makeText(MainActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
+                        Boolean insert = DB.insertUserData(username, account, password);
+                        if(insert == true){
+                            Toast.makeText(MainActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+
+                            Map<String, String> mapUser = DB.findusermap(account);
+                            bundle.putString("username", mapUser.get("username"));
+                            bundle.putString("account", mapUser.get("account"));
+                            intent.putExtras(bundle);
+
+                            startActivity(intent);
+
+                            System.out.println("Insert Success");
+                        }
+                        else{
+                            Toast.makeText(MainActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
+                            System.out.println("Insert Failed");
+                        }
 
                     }
                     else{
-                        Toast.makeText(MainActivity.this,"User exist", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this,"User already Exist", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(intent);
+                        System.out.println("User already Exist");
                     }
                 }
 
