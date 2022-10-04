@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
-        android:text="Willy"
+        android:text="Not User"
         android:textColor="#673AB7"
         android:textSize="60sp"
         android:textStyle="bold"
@@ -20,13 +20,25 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <Button
-        android:id="@+id/btn_signout"
+        android:id="@+id/btn_signup"
         android:layout_width="120dp"
         android:layout_height="49dp"
         android:layout_marginStart="144dp"
-        android:layout_marginTop="500dp"
+        android:layout_marginTop="530dp"
         android:text="登出"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_insert"
+        android:layout_width="120dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="380dp"
+        android:text="新增資料"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +48,7 @@
         android:layout_width="120dp"
         android:layout_height="48dp"
         android:layout_marginStart="144dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="460dp"
         android:text="查看資料"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"

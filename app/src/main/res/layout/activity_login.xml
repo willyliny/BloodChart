@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
     <Button
-        android:id="@+id/btn_signout"
+        android:id="@+id/btn_signup"
         android:layout_width="136dp"
         android:layout_height="49dp"
         android:layout_marginStart="136dp"
