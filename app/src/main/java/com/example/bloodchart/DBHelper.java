@@ -1,11 +1,14 @@
 package com.example.bloodchart;
 
+import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -16,7 +19,11 @@ public class DBHelper extends SQLiteOpenHelper
     public static final String DB_LOGIN = "login2.db";
     private SQLiteDatabase db;
     private final Context context;
-
+    private static final Integer db_date = 2;
+    private static final Integer db_time = 3;
+    private static final Integer db_sbp = 4;
+    private static final Integer db_dbp = 5;
+    HomeActivity HA;
     public DBHelper(Context context){
         super(context, DB_LOGIN , null, 1);
         this.context = context;
@@ -77,6 +84,7 @@ public class DBHelper extends SQLiteOpenHelper
         return map;
     }
 
+
     public Boolean insertBPdata(String account, String date, String time, String sbp, String dbp){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -88,10 +96,69 @@ public class DBHelper extends SQLiteOpenHelper
         values.put("dbp", dbp);
 
         long result = db.insert("userbpdata", null, values);
-        
+
         if(result == -1) return false;
         else
             return true;
+    }
+
+    public Boolean updateBPdata(String _id, String date, String time, String sbp, String dbp){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("date", date);
+        values.put("time", time);
+        values.put("sbp", sbp);
+        values.put("dbp", dbp);
+        long result = db.update("userbpdata", values, "id=?",new String[] {_id});
+//        long result = db.insert("userbpdata", null, values);
+
+        if(result == -1) return false;
+        else
+            return true;
+    }
+
+    public Boolean deleteBPdata(String _id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.delete("userbpdata","id=?",new String[] {_id});
+        if(result == -1) return false;
+        else
+            return true;
+    }
+
+    public StringBuffer searchUserRecordData(String account){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from userbpdata where account=?", new String[] {account});
+        cursor.moveToFirst();
+        String[] title = {"date", "time", "sbp", "dbp"};
+        StringBuffer csvText = new StringBuffer();
+        for(int i=0; i<title.length; i++){
+            csvText.append(title[i]+",");
+        }
+
+        do{
+            csvText.append("\n");
+            csvText.append(cursor.getString(db_date) + ",");
+            csvText.append(cursor.getString(db_time) + ",");
+            csvText.append(cursor.getString(db_sbp) + ",");
+            csvText.append(cursor.getString(db_dbp) + ",");
+
+            System.out.println("date: " + cursor.getString(db_date));
+            System.out.println("time: " + cursor.getString(db_time));
+            System.out.println("sbp: " + cursor.getString(db_sbp));
+            System.out.println("dbp: " + cursor.getString(db_dbp));
+
+        }while (cursor.moveToNext());
+        Log.d(TAG, "makeCSV\n" + csvText);
+        System.out.println("csv: " + csvText);
+        return csvText;
+    }
+
+    public Cursor getdata(String account){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from userbpdata where account=?", new String[] {account});
+        cursor.moveToFirst();
+        return cursor;
     }
 
 }
